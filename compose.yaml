@@ -1,0 +1,6 @@
+services:
+  airwave:
+    image: airwave
+    build:
+      context: .
+      dockerfile: ./Dockerfile
