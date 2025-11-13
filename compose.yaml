@@ -1,6 +1,7 @@
+version: '3'
 services:
-  airwave:
-    image: airwave
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  web:
+    image: web-skeleton
+    build: .
+    ports:
+      - "8080:80"
