@@ -11,6 +11,22 @@ It then asks the DNS resolver for the server’s IP address. The resolver follow
 
 The site consists of a Homepage which has links to different pages like about, schedule, registration, judges and contact information.
 
-Link To the Live Site
+The website can be run locally using Docker with a lightweght Nginx server
+
+Make sure Docker Desktop is running, then open your terminal inside the project folder and run:
+
+docker build -t web-skeleton
+
+This builds a image called web skeleton
+
+Start a container and map it to you local port by running:
+ Docker-compose up
+
+Open browser and visit:
+ http://localhost:8080
+
+Browser → localhost:8080 → Docker (Nginx) → /usr/share/nginx/html → home.html
+
+Link To the Live Site 
 
 https://benji0ke.github.io/AIRWAVE-DANCE-EVENT/
