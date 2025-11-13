@@ -13,4 +13,4 @@ The site consists of a Homepage which has links to different pages like about, s
 
 Link To the Live Site
 
-[[https://benji0ke.github.io/Airwave-Dance-Event/][(https://benji0ke.github.io/Airwave-Dance-Event/)
+https://benji0ke.github.io/AIRWAVE-DANCE-EVENT/
