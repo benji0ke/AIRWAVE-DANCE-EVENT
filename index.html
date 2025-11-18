@@ -75,6 +75,31 @@
         flex: 1 0 auto;
     }
 
+    
+    .columns {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .columns .col {
+        flex: 1 1 320px;
+        min-width: 260px;
+    }
+    .columns h2 {
+        margin-top: 0;
+        color: #ffd700;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+    .columns p {
+        margin: 8px 0 0;
+        color: #fff;
+    }
+
     header, main, footer {
         position: relative;
         z-index: 1;
@@ -100,9 +125,9 @@
         margin-top: 20px;
         padding-top: 10px;
     }
-
-
-</style>
+    
+    
+    </style>
 
     
 </head>
@@ -127,8 +152,17 @@
         </nav>
     </header>
     <main>
-        <h2>Upcoming Events</h2>
-        <p>Information on upcoming events will be posted on social media handles</p>
+        <div class="columns">
+            <div class="col">
+                <h2>Upcoming Events</h2>
+                <p>Information on upcoming events will be posted on social media handles</p>
+            </div>
+            <div class="col">
+                <h2>Mixes</h2>
+                <p>Latest mixes and playlists will appear here.</p>
+                
+            </div>
+        </div>
     </main>
     <footer>
         <p>&copy; 2025 Airwave Dance Event</p>
