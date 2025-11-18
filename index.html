@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airwave Dance Event</title>
     <style>
+
      body {
         margin: 0;
         background: black; /* fallback while video loads */
@@ -22,14 +23,13 @@
         pointer-events: none;
     }
       .top-nav  {
-<<<<<<< HEAD
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: rgba(0,0,0,0.98);
     color: #ffd700;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     justify-content: center;   /* ⬅ centers the nav horizontally */
     align-items: center;
@@ -45,27 +45,9 @@
     gap: 18px;
     justify-content: center; /* centers items inside the UL */
     align-items: center;
-=======
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0,0,0,0.98);
-        color: #ffd700; /* yellow */
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        padding: 10px 20px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      }
-       .top-nav ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: flex;
-        gap: 18px;
-        align-items: center;
-    }
+       }
+       
+    
     .top-nav a {
         color: #ffd700; /* yellow */
         text-decoration: none;
@@ -82,38 +64,24 @@
         color: #ffffff;
         text-shadow: 0 0 5px yellow;
         padding: 20px;
->>>>>>> 28f1cd1002f1f42c4a12ee031be70577298bf1f0
     }
-
-    .top-nav a {
-        color: #ffd700; /* yellow */
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 16px;
-    }
-    .top-nav a:hover {
-        text-decoration: underline;
-    }
-
-   
-    
-    header h1 {
-    color: black;
+ 
+    header h1,
+    .page-title {
+    color: #ffd700;
     text-align: center;
     margin: 0;
     padding-top: 10px;
     z-index: 3;
     position: relative;
    }
-.page-title {
-    text-align: center;
-    color: black;
-    margin: 15px 0 5px 0;
-    font-size: 28px;
-    font-weight: bold;
-    z-index: 3;
-    position: relative;
-   }
+    footer {
+        text-align: center;
+        font-size: 14px;
+        border-top: 1px solid #444;
+        margin-top: 20px;
+        padding-top: 10px;
+    }
 
 
 </style>
@@ -126,11 +94,7 @@
 </video>
 
     <header>
-<<<<<<< HEAD
         <h1 class="page-title">Welcome to Airwave Dance Event</h1>
-=======
-        <h1>Welcome to Airwave Dance Event</h1>
->>>>>>> 28f1cd1002f1f42c4a12ee031be70577298bf1f0
         <nav class="top-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
