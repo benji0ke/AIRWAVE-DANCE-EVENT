@@ -5,98 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Information</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-      html, body { height: 100%; }
-      body {
-        margin: 0;
-        background: black;
-        padding-top: 64px; 
-        font-family: 'Montserrat', 'Segoe UI', Roboto, Arial, sans-serif;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-
-      
-      #bg-video {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        object-fit: cover;
-        pointer-events: none;
-        filter: brightness(0.6);
-        
-      }
-      .video-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0; 
-        background: rgba(0,0,0,0.25);
-        pointer-events: none;
-      }
-
-      
-      .top-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0,0,0,0.98);
-        color: #ffd700;
-        z-index: 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 20px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      }
-      .top-nav ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: flex;
-        gap: 18px;
-        justify-content: center;
-        align-items: center;
-      }
-      .top-nav a {
-        color: #ffd700;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 16px;
-      }
-      .top-nav a:hover { text-decoration: underline; }
-
-      header, main, footer {
-        position: relative;
-        z-index: 2;
-        padding: 20px;
-        text-shadow: 0 0 5px rgba(0,0,0,0.8);
-      }
-
-      main { flex: 1 0 auto; }
-
-      footer {
-        text-align: center;
-        font-size: 14px;
-        border-top: 1px solid #444;
-        margin-top: 20px;
-        padding-top: 10px;
-      }
-    </style>
+    
 </head>
 <body>
     
     <video autoplay muted loop playsinline preload="auto" id="bg-video">
         <source src="Diagrams/background-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        
     </video>
     <div class="video-overlay"></div>
 
@@ -119,9 +34,8 @@
         <h2>Get in Touch</h2>
         <p>We'd love to hear from you. Reach out to us using any of the methods below.</p>
         <h3>Email</h3>
-        <p>benjaminwjuma@gmail.com</p>
-        <h3>Phone</h3>
-        <p>+254799594521</p>
+        <p>benjithadj@gmail.com</p>
+        
         <h3>Follow Us</h3>
         <p>Connect with us on social media @Airwave254.</p>
     </main>
