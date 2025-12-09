@@ -84,16 +84,28 @@ html, body { height: 100%; }
       margin-right: auto;
     }
 
-    .columns {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .col {
-      flex: 1 1 320px;
-      min-width: 260px;
-    }
+    /* columns layout for side-by-side sections */
+.columns {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.columns .col {
+    flex: 1 1 320px;
+    min-width: 260px;
+}
+.columns h2 {
+    margin-top: 0;
+    color: #ffd700;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+.columns p {
+    margin: 8px 0 0;
+    color: #fff;
+}
