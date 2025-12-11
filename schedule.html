@@ -127,23 +127,7 @@
       padding-top: 10px;
     }
     </style>
-    <style>
-    /* hamburger styles */
-    .nav-toggle { display: none; background: none; border: none; padding: 8px; color: #ffd700; cursor: pointer; }
-    .nav-toggle .hamburger { width: 24px; height: 2px; background: #ffd700; display: block; position: relative; }
-    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content: ""; position: absolute; left: 0; width: 24px; height: 2px; background: #ffd700; transition: transform .3s ease; }
-    .nav-toggle .hamburger::before { top: -7px; }
-    .nav-toggle .hamburger::after { top: 7px; }
-    @media (max-width: 800px) {
-      .nav-toggle { display: block; z-index: 4; }
-      .top-nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.98); padding: 12px 0; margin: 0; }
-      .top-nav.open ul { display: flex; }
-      .top-nav ul li { padding: 8px 18px; }
-      .top-nav.open .nav-toggle .hamburger { background: transparent; }
-      .top-nav.open .nav-toggle .hamburger::before { transform: translateY(7px) rotate(45deg); }
-      .top-nav.open .nav-toggle .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
-    }
-    </style>
+    
 </head>
 <body>
     <video autoplay muted loop playsinline preload="auto" id="bg-video">
@@ -153,10 +137,7 @@
 
     <header>
              <nav class="top-nav">
-               <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle navigation">
-              <span class="hamburger"></span>
-               </button>
-               <ul id="nav-list">
+              <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="Judges.html">Judges</a></li>

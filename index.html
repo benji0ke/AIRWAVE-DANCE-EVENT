@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airwave Dance Event</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
+    
+   <style>
     html, body { height: 100%; }
     body {
       margin: 0;
@@ -17,7 +13,6 @@
       flex-direction: column;
       min-height: 100vh;
     }
-
     #bg-video {
       position: fixed;
       top: 0;
@@ -128,20 +123,18 @@
     }
    
     
-    .nav-toggle { display: none; background: none; border: none; padding: 8px; color: #ffd700; cursor: pointer; }
-    .nav-toggle .hamburger { width: 24px; height: 2px; background: #ffd700; display: block; position: relative; }
-    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content: ""; position: absolute; left: 0; width: 24px; height: 2px; background: #ffd700; transition: transform .3s ease; }
-    .nav-toggle .hamburger::before { top: -7px; }
-    .nav-toggle .hamburger::after { top: 7px; }
-    @media (max-width: 800px) {
-      .nav-toggle { display: block; z-index: 4; }
-      .top-nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.98); padding: 12px 0; margin: 0; }
-      .top-nav.open ul { display: flex; }
-      .top-nav ul li { padding: 8px 18px; }
-      .top-nav.open .nav-toggle .hamburger { background: transparent; }
-      .top-nav.open .nav-toggle .hamburger::before { transform: translateY(7px) rotate(45deg); }
-      .top-nav.open .nav-toggle .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
-    }
+    /* Carousel styles */
+    .carousel { display:flex; align-items:center; gap:12px; position:relative; }
+    .carousel__track { list-style:none; margin:0; padding:0; display:flex; overflow:hidden; width:320px; height:200px; }
+    .carousel__slide { min-width:100%; flex:0 0 100%; display:flex; align-items:center; justify-content:center; }
+    .carousel__slide img { width:100%; height:100%; object-fit:cover; border-radius:6px; box-shadow:0 3px 8px rgba(0,0,0,0.4); }
+    .carousel__btn { background:rgba(0,0,0,0.6); color:#ffd700; border:0; padding:8px 12px; font-size:20px; cursor:pointer; border-radius:4px; }
+    .carousel__btn:focus { outline:2px solid #ffd700; }
+    .carousel__dots { display:flex; gap:6px; margin-left:8px; }
+    .carousel__dot { width:10px; height:10px; background:#666; border-radius:50%; cursor:pointer; }
+    .carousel__dot[aria-selected="true"] { background:#ffd700; }
+    @media (max-width:640px){ .carousel__track{ width:260px; height:160px; } }
+
     </style>
 </head>
 <body>
@@ -153,10 +146,7 @@
     <header>
         <h1 class="page-title">Welcome to Airwave Dance Event</h1>
         <nav class="top-nav">
-          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle navigation">
-            <span class="hamburger"></span>
-          </button>
-          <ul id="nav-list">
+          <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="Judges.html">Judges</a></li>
@@ -169,10 +159,22 @@
     </header>
     <main>
         <div class="columns">
-            <div class="col">
-                <h2>Upcoming Events</h2>
-                <p></p>
+          <div class="col">
+            <h2>Upcoming Events</h2>
+            <div class="carousel" aria-roledescription="carousel">
+              <button class="carousel__btn carousel__btn--prev" aria-label="Previous image">‹</button>
+              <ul class="carousel__track">
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (1).png" alt="Event photo 1"></li>
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (3).png" alt="Event photo 2"></li>
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (6).png" alt="Event photo 3"></li>
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (8).png" alt="Event photo 4"></li>
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (11).png" alt="Event photo 5"></li>
+                <li class="carousel__slide"><img src="Diagrams/Mixes/Untitled (13).png" alt="Event photo 6"></li>
+              </ul>
+              <button class="carousel__btn carousel__btn--next" aria-label="Next image">›</button>
+              <div class="carousel__dots" role="tablist" aria-label="Select image"></div>
             </div>
+          </div>
             <div class="col">
                 <h2>Mixes</h2>
                 <p></p>
@@ -182,21 +184,54 @@
     <footer>
         <p>&copy; 2025 Airwave Dance Event</p>
     </footer>
+    
     <script>
     (function(){
-      document.addEventListener('DOMContentLoaded', function(){
-        document.querySelectorAll('.top-nav').forEach(function(nav){
-          var btn = nav.querySelector('.nav-toggle');
-          if(!btn) return;
-          btn.addEventListener('click', function(){
-            var open = nav.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open);
-          });
-          nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
-        });
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ document.querySelectorAll('.top-nav.open').forEach(function(n){ n.classList.remove('open'); var b=n.querySelector('.nav-toggle'); if(b) b.setAttribute('aria-expanded','false'); }); }});
+      const track = document.querySelector('.carousel__track');
+      const slides = Array.from(track.querySelectorAll('.carousel__slide'));
+      const prevBtn = document.querySelector('.carousel__btn--prev');
+      const nextBtn = document.querySelector('.carousel__btn--next');
+      const dotsWrap = document.querySelector('.carousel__dots');
+      let current = 0;
+
+      function goTo(index){
+        current = (index + slides.length) % slides.length;
+        const offset = -current * 100;
+        track.style.transform = `translateX(${offset}%)`;
+        updateDots();
+      }
+
+      function updateDots(){
+        const dots = Array.from(dotsWrap.children);
+        dots.forEach((d,i)=> d.setAttribute('aria-selected', String(i===current)));
+      }
+
+      slides.forEach(()=>{
+        const dot = document.createElement('button');
+        dot.className = 'carousel__dot';
+        dot.type = 'button';
+        dot.setAttribute('role','tab');
+        dot.addEventListener('click', ()=> goTo(Array.from(dotsWrap.children).indexOf(dot)));
+        dotsWrap.appendChild(dot);
       });
+
+      prevBtn.addEventListener('click', ()=> goTo(current-1));
+      nextBtn.addEventListener('click', ()=> goTo(current+1));
+
+      document.addEventListener('keydown', (e)=>{
+        if(document.activeElement && document.activeElement.tagName==='INPUT') return;
+        if(e.key==='ArrowLeft') goTo(current-1);
+        if(e.key==='ArrowRight') goTo(current+1);
+      });
+
+      // touch support (basic)
+      let startX = 0;
+      track.addEventListener('touchstart', (e)=> startX = e.touches[0].clientX);
+      track.addEventListener('touchend', (e)=>{ const dx = (e.changedTouches[0].clientX - startX); if(dx>40) goTo(current-1); else if(dx<-40) goTo(current+1); });
+
+      // init
+      goTo(0);
     })();
     </script>
-</body>
+  </body>
 </html>
