@@ -138,9 +138,16 @@
     .registration-form { display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px; align-items:center; }
     .registration-form label { font-weight:600; color:#ffd700; margin-bottom:6px; }
     .registration-form input, .registration-form select { padding:10px 12px; border-radius:8px; border:1px solid #222; background:#0b0b0b; color:#fff; width:100%; box-sizing:border-box; }
+    .registration-form input:focus, .registration-form select:focus { outline:none; border-color:#ffd700; box-shadow:0 0 8px rgba(255,215,0,0.3); }
+    .registration-form .error { border-color:#ff4444; background:#1a0a0a; }
+    .error-msg { font-size:0.85rem; color:#ff6666; margin-top:4px; display:none; }
+    .form-group { position:relative; }
     .registration-form .full { grid-column: 1 / -1; }
     .submit-row { grid-column: 1 / -1; display:flex; justify-content:center; margin-top:8px; }
-    .btn-primary { background:#ffd700; color:#000; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .btn-primary { background:#ffd700; color:#000; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:700; transition:all 0.3s ease; }
+    .btn-primary:hover { background:#ffed4e; transform:scale(1.05); }
+    .btn-primary:disabled { background:#666; cursor:not-allowed; transform:scale(1); }
+    .success-msg { background:rgba(0,255,0,0.1); border:1px solid rgba(0,255,0,0.3); color:#66ff66; padding:12px; border-radius:8px; margin-bottom:16px; display:none; }
     @media (max-width:640px){ .registration-form { grid-template-columns: 1fr; } }
     </style>
     
@@ -170,27 +177,40 @@
         <div class="form-panel" role="region" aria-label="Registration form">
           <h1 style="text-align:center;margin-top:0;color:#ffd700;">Registration</h1>
           <p style="text-align:center;margin-top:6px;color:#ddd;">Fill in your information in the spaces provided below</p>
-          <form class="registration-form" novalidate>
+          <div class="success-msg" id="successMsg">✓ Registration submitted successfully! We'll be in touch soon.</div>
+          <form class="registration-form" id="regForm" novalidate>
             <label for="name" class="full">Full Name</label>
-            <input type="text" id="name" name="name" required class="full" placeholder="Your full name">
+            <div class="form-group full">
+              <input type="text" id="name" name="name" required class="full" placeholder="Your full name">
+              <div class="error-msg" id="nameError"></div>
+            </div>
 
             <label for="email">Email Address</label>
             <label for="phone">Phone Number</label>
-            <input type="email" id="email" name="email" required placeholder="you@example.com">
-            <input type="tel" id="phone" name="phone" required placeholder="+44 7700 900000">
+            <div class="form-group">
+              <input type="email" id="email" name="email" required placeholder="you@example.com">
+              <div class="error-msg" id="emailError"></div>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="phone" name="phone" required placeholder="+44 7700 900000">
+              <div class="error-msg" id="phoneError"></div>
+            </div>
 
             <label for="category" class="full">Dance Category</label>
-            <select id="category" name="category" required class="full">
-              <option value="">Select a category</option>
-              <option value="hiphop">Hip Hop</option>
-              <option value="breakdance">Breakdance</option>
-              <option value="dancehall">Dancehall</option>
-              <option value="reggae">Reggae</option>
-              <option value="couples">Couples</option>
-            </select>
+            <div class="form-group full">
+              <select id="category" name="category" required class="full">
+                <option value="">Select a category</option>
+                <option value="hiphop">Hip Hop</option>
+                <option value="breakdance">Breakdance</option>
+                <option value="dancehall">Dancehall</option>
+                <option value="reggae">Reggae</option>
+                <option value="couples">Couples</option>
+              </select>
+              <div class="error-msg" id="categoryError"></div>
+            </div>
 
             <div class="submit-row">
-              <input type="submit" value="Register" class="btn-primary">
+              <input type="submit" value="Register" class="btn-primary" id="submitBtn">
             </div>
           </form>
         </div>
@@ -224,6 +244,126 @@
         </div>
         <p>&copy; 2025 Airwave Dance Event</p>
     </footer>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        const form = document.getElementById('regForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const categoryInput = document.getElementById('category');
+        const successMsg = document.getElementById('successMsg');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Attach blur events for validation
+        nameInput.addEventListener('blur', validateName);
+        nameInput.addEventListener('input', function(){ clearError('nameError'); });
+        
+        emailInput.addEventListener('blur', validateEmail);
+        emailInput.addEventListener('input', function(){ clearError('emailError'); });
+        
+        phoneInput.addEventListener('blur', validatePhone);
+        phoneInput.addEventListener('input', function(){ clearError('phoneError'); });
+        
+        categoryInput.addEventListener('change', validateCategory);
+
+        function clearError(fieldId){
+          document.getElementById(fieldId).style.display = 'none';
+          const inputField = fieldId.replace('Error', '');
+          const input = document.getElementById(inputField);
+          if(input) input.classList.remove('error');
+        }
+
+        function showError(fieldId, message){
+          const errorDiv = document.getElementById(fieldId);
+          errorDiv.textContent = message;
+          errorDiv.style.display = 'block';
+          const inputField = fieldId.replace('Error', '');
+          const input = document.getElementById(inputField);
+          if(input) input.classList.add('error');
+        }
+
+        function validateName(){
+          const value = nameInput.value.trim();
+          if(!value){
+            showError('nameError', 'Full name is required');
+            return false;
+          }
+          if(value.length < 2){
+            showError('nameError', 'Name must be at least 2 characters');
+            return false;
+          }
+          if(!/^[a-zA-Z\s\-\']+$/.test(value)){
+            showError('nameError', 'Name should contain only letters, spaces, hyphens, or apostrophes');
+            return false;
+          }
+          clearError('nameError');
+          return true;
+        }
+
+        function validateEmail(){
+          const value = emailInput.value.trim();
+          if(!value){
+            showError('emailError', 'Email is required');
+            return false;
+          }
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if(!emailRegex.test(value)){
+            showError('emailError', 'Please enter a valid email address');
+            return false;
+          }
+          clearError('emailError');
+          return true;
+        }
+
+        function validatePhone(){
+          const value = phoneInput.value.trim();
+          if(!value){
+            showError('phoneError', 'Phone number is required');
+            return false;
+          }
+          const digitCount = (value.match(/\d/g) || []).length;
+          if(digitCount < 9){
+            showError('phoneError', 'Phone number must contain at least 9 digits');
+            return false;
+          }
+          clearError('phoneError');
+          return true;
+        }
+
+        function validateCategory(){
+          const value = categoryInput.value.trim();
+          if(!value){
+            showError('categoryError', 'Please select a dance category');
+            return false;
+          }
+          clearError('categoryError');
+          return true;
+        }
+
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          
+          const nameValid = validateName();
+          const emailValid = validateEmail();
+          const phoneValid = validatePhone();
+          const categoryValid = validateCategory();
+
+          if(nameValid && emailValid && phoneValid && categoryValid){
+            successMsg.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitted!';
+            
+            setTimeout(function(){
+              form.reset();
+              successMsg.style.display = 'none';
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Register';
+            }, 3000);
+          }
+        });
+      });
+    </script>
     
     </body>
     </html>
