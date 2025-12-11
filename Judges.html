@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
         <style>
         
-        /* hamburger styles */
+        
         .nav-toggle { display: none; background: none; border: none; padding: 8px; color: #ffd700; cursor: pointer; }
         .nav-toggle .hamburger { width: 24px; height: 2px; background: #ffd700; display: block; position: relative; }
         .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content: ""; position: absolute; left: 0; width: 24px; height: 2px; background: #ffd700; transition: transform .3s ease; }
@@ -141,6 +141,21 @@
             border-top: 1px solid #444;
             margin-top: 20px;
             padding-top: 10px;
+        }
+        
+        .judge-logo {
+            display: block;
+            max-width: 420px;
+            width: 60%;
+            height: auto;
+            margin: 18px auto;
+        }
+        @media (max-width: 600px) {
+            .judge-logo { width: 80%; max-width: 280px; margin: 12px auto; }
+            .columns { gap: 18px; padding: 12px; }
+            header, main, footer { padding: 12px; }
+            .top-nav ul { gap: 12px; }
+            .page-title { font-size: 1.25rem; }
         }
         </style>
     
