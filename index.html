@@ -69,6 +69,24 @@
     }
     .top-nav a:hover { text-decoration: underline; }
 
+    /* Responsive nav toggle (hamburger) */
+    .nav-toggle { display: none; background: transparent; border: none; cursor: pointer; padding:8px; margin-right:12px; }
+    .nav-toggle .hamburger { display:block; width:22px; height:2px; background:#ffd700; position:relative; transition:all 0.25s ease; }
+    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content:''; position:absolute; left:0; right:0; height:2px; background:#ffd700; transition:all 0.25s ease; }
+    .nav-toggle .hamburger::before { top:-7px; }
+    .nav-toggle .hamburger::after { top:7px; }
+    .nav-toggle[aria-expanded="true"] .hamburger { background: transparent; }
+    .nav-toggle[aria-expanded="true"] .hamburger::before { transform: rotate(45deg) translate(4px,4px); top:0; }
+    .nav-toggle[aria-expanded="true"] .hamburger::after { transform: rotate(-45deg) translate(4px,-4px); top:0; }
+
+    @media (max-width:640px){
+      .top-nav ul { display:none; position:absolute; top:56px; left:0; right:0; background: rgba(0,0,0,0.98); flex-direction:column; gap:0; padding:12px 16px; }
+      .top-nav ul.open { display:flex; }
+      .top-nav ul li { margin:6px 0; }
+      .nav-toggle { display:block; position:absolute; left:16px; top:12px; z-index:10000; }
+      .top-nav { padding:12px 48px; }
+    }
+
     header, main, footer {
       position: relative;
       z-index: 2;
@@ -160,18 +178,21 @@
 <div class="video-overlay"></div>
 
     <header>
-        <h1 class="page-title">Welcome to Airwave Dance Event</h1>
-        <nav class="top-nav">
-          <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="Judges.html">Judges</a></li>
-                <li><a href="registration.html">Registration</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="Contact.html">Contact</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-        </nav>
+      <h1 class="page-title">Welcome to Airwave Dance Event</h1>
+      <nav class="top-nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle navigation">
+        <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <ul id="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="Judges.html">Judges</a></li>
+          <li><a href="registration.html">Registration</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="Contact.html">Contact</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
       <section>
@@ -232,6 +253,49 @@
         <p>&copy; 2025 Airwave Dance Event</p>
     </footer>
     
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        const toggle = document.querySelector('.nav-toggle');
+        if(!toggle) return;
+        const menuId = toggle.getAttribute('aria-controls');
+        const menu = document.getElementById(menuId);
+
+        function openMenu(){
+          toggle.setAttribute('aria-expanded','true');
+          menu.classList.add('open');
+          // focus first link for keyboard users
+          const firstLink = menu.querySelector('a');
+          if(firstLink) firstLink.focus();
+        }
+        function closeMenu(){
+          toggle.setAttribute('aria-expanded','false');
+          menu.classList.remove('open');
+          toggle.focus();
+        }
+
+        toggle.addEventListener('click', function(e){
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          if(expanded) closeMenu(); else openMenu();
+        });
+
+        toggle.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle.click(); }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e){
+          if(e.key === 'Escape' || e.key === 'Esc'){
+            if(menu.classList.contains('open')) closeMenu();
+          }
+        });
+
+        // Click outside to close
+        document.addEventListener('click', function(e){
+          const withinNav = e.target.closest && e.target.closest('.top-nav');
+          if(!withinNav && menu.classList.contains('open')) closeMenu();
+        });
+      });
+    </script>
     
   </body>
 </html>
