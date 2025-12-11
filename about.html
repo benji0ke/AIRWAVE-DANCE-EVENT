@@ -130,29 +130,32 @@
     </header>
 
     <main>
-        <h1>About Us</h1>
+      <h1>About Us</h1>
+      <section>
+        <h2>Who we are</h2>
+        <p>Airwave is a community-led dance event bringing together dancers, DJs, and judges to celebrate performance, choreography and music. Started as a school project, the event focuses on inclusion, learning and showcasing local talent.</p>
+      </section>
+
+      <section>
         <h2>Our Mission</h2>
+        <p>We aim to create an affordable, welcoming platform where emerging dancers can perform, receive constructive feedback, and grow their networks. We prioritise accessibility, safety, and a supportive environment for all skill levels.</p>
+      </section>
+
+      <section>
         <h2>Our Team</h2>
+        <p>Our current organising team includes:</p>
+        <ul>
+          <li><strong>Wesonga</strong> — Event lead and DJ coordinator</li>
+          <li><strong>Aisha</strong> — Volunteer manager and logistics</li>
+          <li><strong>Sam</strong> — Marketing and community outreach</li>
+        </ul>
+        <p>If you'd like to join the team or volunteer at the next event, please visit the <a href="registration.html">Registration</a> page or contact us via the <a href="Contact.html">Contact</a> page.</p>
+      </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Airwave Dance Event</p>
     </footer>
-    <script>
-    (function(){
-      document.addEventListener('DOMContentLoaded', function(){
-        document.querySelectorAll('.top-nav').forEach(function(nav){
-          var btn = nav.querySelector('.nav-toggle');
-          if(!btn) return;
-          btn.addEventListener('click', function(){
-            var open = nav.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open);
-          });
-          nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
-        });
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ document.querySelectorAll('.top-nav.open').forEach(function(n){ n.classList.remove('open'); var b=n.querySelector('.nav-toggle'); if(b) b.setAttribute('aria-expanded','false'); }); }});
-      });
-    })();
-    </script>
+    
     </body>
     </html>
