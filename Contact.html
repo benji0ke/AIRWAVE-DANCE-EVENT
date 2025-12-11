@@ -48,7 +48,7 @@
       width: 100%;
       background: rgba(0,0,0,0.98);
       color: #ffd700;
-      z-index: 3;
+      z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -89,9 +89,34 @@
       text-align: center;
       margin: 0;
       padding-top: 10px;
-      z-index: 3;
+      z-index: 2;
       position: relative;
       font-weight: 700;
+    }
+
+    main h1 {
+      color: #ffd700;
+      text-align: center;
+      margin: 0 0 24px 0;
+      padding-top: 10px;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    /* Layout container and cards */
+    .container { max-width:1000px; margin:0 auto; padding:12px; }
+    .cards-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+    .card { background: rgba(6,6,6,0.6); border-radius:10px; padding:18px; border:1px solid rgba(255,215,0,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+    .card h2 { margin:0 0 10px 0; color:#ffd700; font-size:1.3rem; }
+    .card h3 { margin:12px 0 6px 0; color:#ffd700; font-size:1.1rem; }
+    .card p { margin:8px 0; color:#ddd; line-height:1.6; }
+    .card a { color:#ffd700; text-decoration:none; font-weight:600; }
+    .card a:hover { text-decoration:underline; }
+    .card.intro { grid-column: 1 / -1; }
+
+    @media (max-width:640px){ 
+      .cards-grid { grid-template-columns: 1fr; } 
+      .card.intro { grid-column: 1; }
     }
 
     /* columns layout */
@@ -169,15 +194,32 @@
     </header>
 
     <main>
-        <h1>Contact Information</h1>
-        <h2>Get in Touch</h2>
-        <p>We'd love to hear from you. Reach out to us using any of the methods below.</p>
-        <h3>Email</h3>
-        <p>benjaminwjuma@gmail.com</p>
-        <h3>Phone</h3>
-        <p>+254799594521</p>
-        <h3>Follow Us</h3>
-        <p>Connect with us on social media @Airwave254.</p>
+        <div class="container">
+            <h1>Contact Information</h1>
+            <div class="cards-grid">
+                <div class="card intro">
+                    <h2>Get in Touch</h2>
+                    <p>We'd love to hear from you. Reach out to us using any of the methods below.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Email</h3>
+                    <p><a href="mailto:benjaminwjuma@gmail.com">benjaminwjuma@gmail.com</a></p>
+                    <p style="font-size:0.9rem;color:#999;margin-top:12px;">Send us an email anytime.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Phone</h3>
+                    <p><a href="tel:+254799594521">+254 799 594521</a></p>
+                    <p style="font-size:0.9rem;color:#999;margin-top:12px;">Call us during business hours.</p>
+                </div>
+
+                <div class="card intro">
+                    <h3>Follow Us</h3>
+                    <p>Connect with us on social media <strong>@Airwave254</strong> for updates, event news, and community highlights.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>

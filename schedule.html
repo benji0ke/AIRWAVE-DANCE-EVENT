@@ -48,7 +48,7 @@
       width: 100%;
       background: rgba(0,0,0,0.98);
       color: #ffd700;
-      z-index: 3;
+      z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -89,9 +89,29 @@
       text-align: center;
       margin: 0;
       padding-top: 10px;
-      z-index: 3;
+      z-index: 2;
       position: relative;
       font-weight: 700;
+    }
+
+    main h1 {
+      color: #ffd700;
+      text-align: center;
+      margin: 0 0 24px 0;
+      padding-top: 10px;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    /* Layout container and cards */
+    .container { max-width:1000px; margin:0 auto; padding:12px; }
+    .cards-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+    .card { background: rgba(6,6,6,0.6); border-radius:10px; padding:18px; border:1px solid rgba(255,215,0,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+    .card h2 { margin:0 0 10px 0; color:#ffd700; font-size:1.3rem; }
+    .card p { margin:8px 0; color:#ddd; line-height:1.6; }
+
+    @media (max-width:640px){ 
+      .cards-grid { grid-template-columns: 1fr; } 
     }
 
     /* columns layout */
@@ -150,11 +170,22 @@
     </header>
 
     <main>
-        <h1>Schedule</h1>
-        <h2>Day 1 Activities</h2>
-        <p>Registration and Preliminary stages of the competition on all categories </p>
-        <h2>Day 2 Activities</h2>
-        <p>Finals for all categories and special performances by guest DJs</p>
+        <div class="container">
+            <h1>Schedule</h1>
+            <div class="cards-grid">
+                <div class="card">
+                    <h2>Day 1 Activities</h2>
+                    <p>Registration and Preliminary stages of the competition on all categories. Get ready to showcase your moves as dancers compete across all dance styles.</p>
+                    <p style="font-size:0.9rem;color:#999;margin-top:12px;"><strong>Focus:</strong> Preliminaries & Registration</p>
+                </div>
+
+                <div class="card">
+                    <h2>Day 2 Activities</h2>
+                    <p>Finals for all categories and special performances by guest DJs. Watch the top dancers battle it out for glory and celebrate with amazing music.</p>
+                    <p style="font-size:0.9rem;color:#999;margin-top:12px;"><strong>Focus:</strong> Finals & DJ Sets</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>

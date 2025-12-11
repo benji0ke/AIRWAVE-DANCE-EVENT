@@ -123,10 +123,27 @@
     }
    
     
-    /* Carousel (single image) */
+    
+    .container { max-width:1100px; margin:0 auto; padding:12px; }
+    .columns { display:flex; gap:24px; align-items:stretch; justify-content:space-between; flex-wrap:wrap; }
+    .col { flex:1 1 320px; min-width:260px; }
+    .card { background: rgba(6,6,6,0.6); border-radius:10px; padding:16px; border:1px solid rgba(255,215,0,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.5); display:flex; flex-direction:column; gap:12px; }
+    .card h2 { margin:0; color:#ffd700; }
+    .card p { margin:0; color:#ddd; }
+
+    
     .carousel.single { display:flex; align-items:center; justify-content:center; gap:12px; }
     .carousel.single img { width:320px; max-width:100%; height:200px; object-fit:cover; border-radius:6px; box-shadow:0 3px 8px rgba(0,0,0,0.4); }
-    @media (max-width:640px){ .carousel.single img { height:160px; } }
+
+    
+    .cta { margin-top:18px; display:flex; justify-content:center; }
+    .cta .cta-card { background: linear-gradient(180deg, rgba(255,215,0,0.06), rgba(255,215,0,0.02)); padding:14px 18px; border-radius:10px; border:1px solid rgba(255,215,0,0.08); }
+    .cta a { color:#000; background:#ffd700; padding:8px 12px; border-radius:6px; text-decoration:none; font-weight:700; }
+
+    @media (max-width:640px){
+      .carousel.single img { height:160px; }
+      .columns { gap:16px; }
+    }
 
     </style>
 </head>
@@ -152,23 +169,32 @@
     </header>
     <main>
       <section>
-        <div class="columns">
-          <div class="col">
-            <h2>Upcoming Events</h2>
-            <p>Upcoming events will be posted on social media pages</p>
-            
-          </div>
+        <div class="container">
+          <div class="columns">
             <div class="col">
+              <div class="card">
+                <h2>Upcoming Events</h2>
+                <p>Upcoming events will be posted on our social channels and here when confirmed. Follow us for the latest updates.</p>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card">
                 <h2>Mixes</h2>
                 <div class="carousel single" aria-label="Upcoming event image">
                   <img src="Diagrams/Mixes/Untitled (1).png" alt="Upcoming event image">
                 </div>
-                <p></p>
+                <p style="color:#bbb;font-size:0.95rem;">Selected mix from our DJ playlist — preview and join us at the event.</p>
+              </div>
             </div>
+          </div>
+
+          <div class="cta">
+            <div class="cta-card">
+              Register here for the event! <a href="registration.html">Register</a>
+            </div>
+          </div>
         </div>
-      </section>
-      <section>
-        Register here for the event! <a href="registration.html" style="color:#ffd700; text-decoration:underline;">Go to Registration Page</a>
       </section>
     </main>
     <footer>
