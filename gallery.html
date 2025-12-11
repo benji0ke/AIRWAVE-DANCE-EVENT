@@ -129,19 +129,18 @@
     </style>
     <style>
     /* hamburger styles */
-    .nav-toggle { display: none; background: none; border: none; padding: 8px; color: #ffd700; cursor: pointer; }
-    .nav-toggle .hamburger { width: 24px; height: 2px; background: #ffd700; display: block; position: relative; }
-    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content: ""; position: absolute; left: 0; width: 24px; height: 2px; background: #ffd700; transition: transform .3s ease; }
-    .nav-toggle .hamburger::before { top: -7px; }
-    .nav-toggle .hamburger::after { top: 7px; }
-    @media (max-width: 800px) {
-      .nav-toggle { display: block; z-index: 4; }
-      .top-nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.98); padding: 12px 0; margin: 0; }
-      .top-nav.open ul { display: flex; }
-      .top-nav ul li { padding: 8px 18px; }
-      .top-nav.open .nav-toggle .hamburger { background: transparent; }
-      .top-nav.open .nav-toggle .hamburger::before { transform: translateY(7px) rotate(45deg); }
-      .top-nav.open .nav-toggle .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
+    .nav-toggle { background: transparent; border: none; cursor: pointer; padding:8px; color: #ffd700; align-self: center; margin-right: auto; }
+    .nav-toggle .hamburger { display:block; width:22px; height:2px; background:#ffd700; position:relative; transition:all 0.25s ease; }
+    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { content:''; position:absolute; left:0; right:0; height:2px; background:#ffd700; transition:all 0.25s ease; }
+    .nav-toggle .hamburger::before { top:-7px; }
+    .nav-toggle .hamburger::after { top:7px; }
+    .nav-toggle[aria-expanded="true"] .hamburger { background: transparent; }
+    .nav-toggle[aria-expanded="true"] .hamburger::before { transform: rotate(45deg) translate(4px,4px); top:0; }
+    .nav-toggle[aria-expanded="true"] .hamburger::after { transform: rotate(-45deg) translate(4px,-4px); top:0; }
+    @media (max-width:640px){
+      .top-nav ul { display:none; position:absolute; top:56px; left:0; right:0; width:100%; background: rgba(0,0,0,0.98); flex-direction:column; gap:0; padding:12px 16px; margin:0; box-sizing:border-box; }
+      .top-nav ul.open { display:flex; }
+      .top-nav ul li { margin:6px 0; }
     }
     </style>
 </head>
@@ -152,9 +151,9 @@
     <div class="video-overlay"></div>
 
     <header>
-        <nav class="top-nav">
+        <nav class="top-nav" role="navigation" aria-label="Main navigation">
           <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle navigation">
-            <span class="hamburger"></span>
+            <span class="hamburger" aria-hidden="true"></span>
           </button>
           <ul id="nav-list">
                 <li><a href="index.html">Home</a></li>
@@ -176,20 +175,44 @@
         <p>&copy; 2025 Airwave Dance Event</p>
     </footer>
     <script>
-    (function(){
       document.addEventListener('DOMContentLoaded', function(){
-        document.querySelectorAll('.top-nav').forEach(function(nav){
-          var btn = nav.querySelector('.nav-toggle');
-          if(!btn) return;
-          btn.addEventListener('click', function(){
-            var open = nav.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open);
-          });
-          nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
+        const toggle = document.querySelector('.nav-toggle');
+        if(!toggle) return;
+        const menuId = toggle.getAttribute('aria-controls');
+        const menu = document.getElementById(menuId);
+
+        function openMenu(){
+          toggle.setAttribute('aria-expanded','true');
+          menu.classList.add('open');
+          const firstLink = menu.querySelector('a');
+          if(firstLink) firstLink.focus();
+        }
+        function closeMenu(){
+          toggle.setAttribute('aria-expanded','false');
+          menu.classList.remove('open');
+          toggle.focus();
+        }
+
+        toggle.addEventListener('click', function(e){
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          if(expanded) closeMenu(); else openMenu();
         });
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ document.querySelectorAll('.top-nav.open').forEach(function(n){ n.classList.remove('open'); var b=n.querySelector('.nav-toggle'); if(b) b.setAttribute('aria-expanded','false'); }); }});
+
+        toggle.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle.click(); }
+        });
+
+        document.addEventListener('keydown', function(e){
+          if(e.key === 'Escape' || e.key === 'Esc'){
+            if(menu.classList.contains('open')) closeMenu();
+          }
+        });
+
+        document.addEventListener('click', function(e){
+          const withinNav = e.target.closest && e.target.closest('.top-nav');
+          if(!withinNav && menu.classList.contains('open')) closeMenu();
+        });
       });
-    })();
     </script>
     </body>
     </html>
